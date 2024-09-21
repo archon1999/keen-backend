@@ -1,1 +1,5 @@
-__all__ = []
+from .problem import ProblemViewSet
+
+__all__ = [
+    'ProblemViewSet',
+]
