@@ -103,7 +103,7 @@ class StudentResultViewSet(generics.GenericAPIView, APIView):
         results = []
         today = datetime.date.today()
         current_date = today.replace(day=1)
-        while current_date < today:
+        while current_date <= today:
             results.append({
                 'date': current_date,
             })
