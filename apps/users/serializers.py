@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.users.models import User
+from apps.users.models import User, Group
 
 
 class UserAuthSerializer(serializers.ModelSerializer):
@@ -9,3 +9,9 @@ class UserAuthSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'avatar']
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = '__all__'
