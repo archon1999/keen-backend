@@ -1,7 +1,10 @@
+import datetime
+
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
+from django.http import Http404
 from django.utils import translation
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.authentication import (SessionAuthentication,
                                            TokenAuthentication)
 from rest_framework.decorators import (
@@ -12,9 +15,10 @@ from rest_framework.decorators import (
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from apps.users.models import Group, User, RoleChoice
-from apps.users.serializers import UserAuthSerializer, GroupSerializer, StudentSerializer
+from apps.users.serializers import UserAuthSerializer, GroupSerializer, StudentSerializer, StudentResultSerializer
 from core import settings
 
 
@@ -72,3 +76,42 @@ class StudentViewSet(viewsets.ModelViewSet):
         if group:
             return group.students.all()
         return self.queryset.none()
+
+
+class StudentResultViewSet(generics.GenericAPIView, APIView):
+    queryset = User.objects.filter(role=RoleChoice.STUDENT)
+    serializer_class = StudentResultSerializer
+
+    def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return super().get_queryset()
+
+        group = Group.objects.filter(id=self.kwargs['group_id']).first()
+        if group:
+            return group.students.filter(id=self.kwargs['id']).first()
+        return self.queryset.none()
+
+    def get(self, request, *args, **kwargs):
+        group = Group.objects.filter(id=self.kwargs['group_id']).first()
+        if group:
+            student = group.students.filter(id=self.kwargs['id']).first()
+            if not student:
+                raise Http404
+        else:
+            raise Http404
+
+        results = []
+        today = datetime.date.today()
+        current_date = today.replace(day=1)
+        while current_date < today:
+            results.append({
+                'date': current_date,
+            })
+            current_date = current_date + datetime.timedelta(days=1)
+
+        serializer = StudentResultSerializer({
+            'student': student,
+            'results': results
+        })
+
+        return Response(serializer.data)

@@ -13,6 +13,7 @@ urlpatterns = [
     re_path('logout/?$', views.logout),
     re_path('me/?$', views.me),
     re_path('set-language/?$', views.set_language),
+    re_path(r'groups/(?P<group_id>\d+)/students/(?P<id>\d+)/results/?$', views.StudentResultViewSet.as_view()),
 ]
 
 urlpatterns += router.urls

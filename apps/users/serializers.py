@@ -1,6 +1,8 @@
+import random
+
 from rest_framework import serializers
 
-from apps.users.models import User, Group
+from apps.users.models import User, Group, Status
 
 
 class UserAuthSerializer(serializers.ModelSerializer):
@@ -20,7 +22,21 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'result']
+        fields = ['id', 'username', 'first_name', 'last_name', 'result']
+
+
+class StudentResultItemSerializer(serializers.Serializer):
+    status = serializers.SerializerMethodField()
+    date = serializers.DateField()
+
+    @staticmethod
+    def get_status(obj):
+        return int(random.choice(Status.values))
+
+
+class StudentResultSerializer(serializers.Serializer):
+    student = StudentSerializer(read_only=True)
+    results = StudentResultItemSerializer(many=True, read_only=True)
 
 
 class GroupSerializer(serializers.ModelSerializer):

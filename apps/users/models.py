@@ -4,6 +4,14 @@ from django.db import models
 from common.storages import UserAvatarStorage
 
 
+class Status(models.TextChoices):
+    gray = 1, "Gray"
+    black = 2, "Black"
+    red = 3, "Red"
+    yellow = 4, "Yellow"
+    green = 5, "Green"
+
+
 class GenderChoice(models.TextChoices):
     MALE = 'M', 'Male'
     FEMALE = 'F', 'Female'
