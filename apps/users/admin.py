@@ -51,5 +51,6 @@ class UserAdmin(UserAdmin):
     list_filter = ("role", "is_superuser", "is_active")
 
 
-# @admin.register(Group)
-# class UserAdmin(admin.ModelAdmin):
+@admin.register(Group)
+class GroupAdmin(admin.ModelAdmin):
+    pass
