@@ -1,1 +1,5 @@
-__all__ = []
+from .contest import ContestSerializer
+
+__all__ = [
+    'ContestSerializer'
+]
