@@ -11,8 +11,6 @@ class ProblemAvailableLanguage(models.Model):
         related_name='available_languages'
     )
     lang = models.CharField(max_length=10, choices=Lang.choices)
-    time_limit = models.IntegerField(null=True, blank=True)
-    memory_limit = models.IntegerField(null=True, blank=True)
     code_template = models.TextField(null=True, blank=True)
 
     class Meta:

@@ -1,5 +1,6 @@
-from .problem import ProblemSerializer
+from .problem import ProblemListSerializer, ProblemDetailSerializer
 
 __all__ = [
-    'ProblemSerializer'
+    'ProblemListSerializer',
+    'ProblemDetailSerializer',
 ]
