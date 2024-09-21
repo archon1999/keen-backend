@@ -9,25 +9,26 @@ class GenderChoice(models.TextChoices):
     FEMALE = 'F', 'Female'
 
 
+class RoleChoice(models.TextChoices):
+    USER = 'user', 'User'
+    STUDENT = 'student', 'Student'
+    TEACHER = 'teacher', 'Teacher'
+
+
 class User(AbstractUser):
     keencoin = models.IntegerField(default=0)
     avatar = models.ImageField(
         default='default_standart.webp',
         storage=UserAvatarStorage
     )
+    role = models.CharField(max_length=20, choices=RoleChoice.choices, default=RoleChoice.USER)
     gender = models.CharField(max_length=1, choices=GenderChoice.choices, null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
 
 
-class Teacher(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-
-
-class Student(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-
-
 class Group(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    students = models.ManyToManyField(to=Student)
-    teacher = models.ForeignKey(to=Teacher, on_delete=models.CASCADE)
+    students = models.ManyToManyField(to=User, limit_choices_to={'role': RoleChoice.STUDENT},
+                                      related_name='student_groups')
+    teacher = models.ForeignKey(to=User, on_delete=models.CASCADE, limit_choices_to={'role': RoleChoice.TEACHER},
+                                related_name='teacher_groups')
