@@ -14,6 +14,7 @@ LOCAL_APPS = [
     'apps.problems',
     'apps.contests',
     'apps.courses',
+    'apps.home'
 ]
 
 THIRD_PARTY_APPS = [
