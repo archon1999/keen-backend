@@ -64,7 +64,8 @@ class GroupViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Group.objects.filter(Q(teacher__user=user) | Q(students__user=user))
+        print(user)
+        return Group.objects.filter(Q(teacher=user) | Q(students=user)).distinct()
 
 
 class StudentViewSet(viewsets.ModelViewSet):
