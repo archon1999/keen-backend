@@ -10,7 +10,10 @@ DEFAULT_APPS = [
 ]
 
 LOCAL_APPS = [
-    'apps.users'
+    'apps.users',
+    'apps.problems',
+    'apps.contests',
+    'apps.courses',
 ]
 
 THIRD_PARTY_APPS = [
@@ -29,7 +32,6 @@ THIRD_PARTY_APPS = [
     'storages',
     'solo',
     'drf_yasg',
-    # 'baton',
 ]
 
 INSTALLED_APPS = THIRD_PARTY_APPS + DEFAULT_APPS + LOCAL_APPS
