@@ -11,13 +11,21 @@ class UserAuthSerializer(serializers.ModelSerializer):
         fields = ['username', 'first_name', 'last_name', 'avatar', 'role']
 
 
-class GroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Group
-        fields = '__all__'
-
-
 class StudentSerializer(serializers.ModelSerializer):
+    result = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_result(obj):
+        return 1
+
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'avatar', 'role']
+        fields = ['username', 'first_name', 'last_name', 'result']
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    students = StudentSerializer(many=True)
+
+    class Meta:
+        model = Group
+        fields = ['id', 'name', 'students']

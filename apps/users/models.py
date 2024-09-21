@@ -32,3 +32,6 @@ class Group(models.Model):
                                       related_name='student_groups')
     teacher = models.ForeignKey(to=User, on_delete=models.CASCADE, limit_choices_to={'role': RoleChoice.TEACHER},
                                 related_name='teacher_groups')
+
+    def __str__(self):
+        return self.name

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Attempt, Problem, ProblemCategory, ProblemSampleTest, ProblemAvailableLanguage, Category
+from .models import Attempt, Problem, ProblemSampleTest, ProblemAvailableLanguage, Category
 
 
 @admin.register(Attempt)
@@ -10,11 +10,6 @@ class AttemptAdmin(admin.ModelAdmin):
 
 @admin.register(Problem)
 class ProblemAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(ProblemCategory)
-class ProblemCategoryAdmin(admin.ModelAdmin):
     pass
 
 
