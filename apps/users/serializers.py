@@ -18,7 +18,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_result(obj):
-        return random.randint(1, 10)
+        return (len(obj.first_name) + len(obj.last_name)) // 2
 
     class Meta:
         model = User
