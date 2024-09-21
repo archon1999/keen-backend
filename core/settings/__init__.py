@@ -125,3 +125,16 @@ class KEENSettings(Settings):
     CORS_EXPOSE_HEADERS = CORS_EXPOSE_HEADERS
     CSRF_COOKIE_HTTPONLY = CSRF_COOKIE_HTTPONLY
     SESSION_COOKIE_HTTPONLY = SESSION_COOKIE_HTTPONLY
+
+    SWAGGER_SETTINGS = {
+        'SECURITY_DEFINITIONS': {
+            'Token': {
+                'type': 'apiKey',
+                'name': 'Authorization',
+                'in': 'header',
+                'description': 'Example format: Bearer {JWT token}'
+            }
+        },
+        'PERSIST_AUTH': True
+    }
+
