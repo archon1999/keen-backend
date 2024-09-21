@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from ..constants import Lang
 from ..models import Problem, Attempt, ProblemAvailableLanguage
 
 
@@ -44,3 +46,8 @@ class ProblemDetailSerializer(ProblemListSerializer):
         fields = ProblemListSerializer.Meta.fields + [
             'input_data', 'output_data', 'comment', 'available_languages'
         ]
+
+
+class ProblemSubmissionSerializer(serializers.Serializer):
+    source_code = serializers.CharField()
+    lang = serializers.ChoiceField(choices=Lang.choices)
