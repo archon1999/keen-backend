@@ -29,7 +29,6 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     'rest_framework.authtoken',
     'nested_inline',
-    'social_django',
     'storages',
     'solo',
     'drf_yasg',
