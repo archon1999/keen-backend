@@ -15,6 +15,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
     path('api/', include('apps.users.urls')),
+    path('api/', include('apps.home.urls')),
 ] + static(settings.KEENSettings.MEDIA_URL, document_root=settings.KEENSettings.MEDIA_ROOT)
 
 urlpatterns += [

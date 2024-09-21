@@ -65,6 +65,9 @@ class StudentViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return super().get_queryset()
+
         group = Group.objects.filter(id=self.kwargs['group_id']).first()
         if group:
             return group.students.all()

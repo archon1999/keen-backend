@@ -1,1 +1,1 @@
-__all__ = []
+from .group_daily_task import GroupDailyTaskView
