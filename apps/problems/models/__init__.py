@@ -3,7 +3,6 @@ from .attempt import Attempt
 from .category import Category
 from .problem_available_language import ProblemAvailableLanguage
 from .problem_sample_test import ProblemSampleTest
-from .problem_category import ProblemCategory
 
 __all__ = [
     'Attempt',
@@ -11,5 +10,4 @@ __all__ = [
     'Category',
     'ProblemAvailableLanguage',
     'ProblemSampleTest',
-    'ProblemCategory',
 ]

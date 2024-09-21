@@ -1,16 +1,15 @@
-import os
-from pathlib import Path
-
 from ckeditor.fields import RichTextField
 from django.db import models
 
 from apps.problems.constants import ProblemDifficulty
 from apps.users.models import User
+from .category import Category
 
 
 class Problem(models.Model):
     Difficulty = ProblemDifficulty
 
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     author = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
