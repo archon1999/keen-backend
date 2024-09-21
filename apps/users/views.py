@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth import login as django_login
 from django.contrib.auth import logout as django_logout
+from django.db.models import Q
 from django.http import Http404
 from django.utils import translation
 from rest_framework import viewsets, generics
@@ -58,9 +59,12 @@ def set_language(request: Request) -> Response:
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
     serializer_class = GroupSerializer
     http_method_names = ['get']
+
+    def get_queryset(self):
+        user = self.request.user
+        return Group.objects.filter(Q(teacher__user=user) | Q(students__user=user))
 
 
 class StudentViewSet(viewsets.ModelViewSet):
