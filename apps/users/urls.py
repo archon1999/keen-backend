@@ -6,6 +6,7 @@ from . import views
 router = DefaultRouter()
 
 router.register('groups', views.GroupViewSet, basename='groups')
+router.register(r'groups/(?P<group_id>\d+)/students', views.StudentViewSet, basename='students')
 
 urlpatterns = [
     re_path('login/?$', views.login),

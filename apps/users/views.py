@@ -13,8 +13,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from apps.users.models import Group
-from apps.users.serializers import UserAuthSerializer, GroupSerializer
+from apps.users.models import Group, User, RoleChoice
+from apps.users.serializers import UserAuthSerializer, GroupSerializer, StudentSerializer
 from core import settings
 
 
@@ -57,3 +57,15 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     http_method_names = ['get']
+
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.filter(role=RoleChoice.STUDENT)
+    serializer_class = StudentSerializer
+    http_method_names = ['get']
+
+    def get_queryset(self):
+        group = Group.objects.filter(id=self.kwargs['group_id']).first()
+        if group:
+            return group.students.all()
+        return self.queryset.none()
